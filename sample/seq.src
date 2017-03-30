@@ -1,0 +1,4 @@
+
+def zip(seq<t> a, seq<u> b) -> seq<tup<t u>>
+	for int i in from 0 to min(#a #b)
+		yield (a[i] b[i])

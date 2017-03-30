@@ -1,0 +1,13 @@
+class
+
+		float[] .e
+
+		def :init(float ...)
+			.e = float[](...)
+
+		def :dot(vect that) -> float dot
+			dot = 0
+			for a b in zip(.e that.e)
+				dot += a * b
+
+			
