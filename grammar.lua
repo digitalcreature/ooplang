@@ -1,7 +1,7 @@
 re = require "re"
 
 g = re.compile([[
-   block <- {|
+   block <- {| {:block::}
       {:ident: ichar*:} line
       (
          blankline / 
@@ -9,7 +9,7 @@ g = re.compile([[
          &(=ident ichar) block
       )*
    |}
-   
+
    line <- {[^%nl/]*} (%nl / comment)
    ichar <- (%tab / " ")
    blankline <- ichar* (%nl / comment)
@@ -22,6 +22,7 @@ local function examine(t, indent)
    print (indent.."{")
    local oldindent = indent
    indent = indent.."  "
+   print(t.block and true)
    for _, x in ipairs(t) do
       if type(x) == "string" then
          print(indent..'"'..x..'"')
