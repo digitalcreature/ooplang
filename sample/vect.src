@@ -10,4 +10,4 @@ class
 			for a b in zip(.e, that.e)
 				dot += a * b
 
-			
+	
