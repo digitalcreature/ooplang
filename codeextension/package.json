@@ -1,0 +1,26 @@
+{
+    "name": "ooplang",
+    "displayName": "ooplang",
+    "description": "",
+    "version": "0.0.1",
+    "publisher": "tgrehawi",
+    "engines": {
+        "vscode": "^1.10.0"
+    },
+    "categories": [
+        "Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "ooplang",
+            "aliases": ["OOP Lang", "ooplang"],
+            "extensions": [".src"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "ooplang",
+            "scopeName": "source.ooplang",
+            "path": "./syntaxes/ooplang.tmLanguage.json"
+        }]
+    }
+}
