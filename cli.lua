@@ -1,20 +1,14 @@
 local grammar = require "grammar"
+local ast = require "ast"
 
 local fname = arg[1]
 
 if fname then
 	local file, error = io.open(fname)
 	if file then
-		src = file:read("*all")
-		ast = grammar:compile():match(src)
-		for _, block in ipairs(ast) do
-			if block.funcdef then
-				print ("name: "..block.name)
-				print ("args: "..table.concat(block.args, " "))
-				print ("rets: "..table.concat(block.rets, " "))
-				print()
-			end
-		end
+		local src = file:read("*all")
+		local tree = grammar:compile():match(src)
+		ast.print(tree)		
 	else
 		error(error)
 	end

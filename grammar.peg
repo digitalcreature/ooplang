@@ -10,13 +10,12 @@ subblock <- &(=indent s) block
 
 indent <- {:indent: s* :}
 
-line <- statement (eol / comment)
+line <- statement s* (eol / comment)
 
-statement <- s* (
+statement <-
 	classdef
 	/ funcdef
-	/ [^%nl/]+
-) s*
+	/ {[^%nl/]+}
 
 classdef <- {| {:classdef::}
 	"class" (s* {:name: id :} )?
