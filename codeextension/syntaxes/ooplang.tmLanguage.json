@@ -2,28 +2,86 @@
 	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
 	"name": "OOP Lang",
 	"patterns": [
-		{
-			"include": "#keywords"
-		},
-		{
-			"include": "#strings"
-		}
+		{ "include": "#block" }
 	],
 	"repository": {
-		"keywords": {
-			"patterns": [{
-				"name": "keyword.control.ooplang",
-				"match": "\\b(if|while|for|return)\\b"
-			}]
+		"block": {
+			"patterns": [
+				{ "include": "#classdef"},
+				{ "include": "#funcdef"}
+				// { "include": "#assign"},
+				// { "include": "#for"},
+				// { "include": "#if"}
+			]
+		},
+		"classdef": {
+			"patterns": [
+				{
+					"begin": "(class)\\s+",
+					"end": ":",
+					"beginCaptures": {
+						"1": {"name": "keyword" }
+					},
+					"patterns": [
+						{ "include": "#ident" }
+					],
+					"contentName": "entity.name.class"
+				},
+				{
+					"match": "(class):",
+					"captures": {
+						"1":{"name": "keyword"}
+					}
+				}
+			]
+		},
+		"ident": {
+			"patterns": [
+				{
+					"match": "([a-zA-Z.:]+)"
+				}
+			]
+		},
+		"funcdef": {
+			"patterns": [
+				{
+					"begin": "(def)\\s+([a-zA-Z.:]+)\\(",
+					"end": "\\)",
+					"beginCaptures": {
+						"1": { "name": "keyword" },
+						"2": { "name": "entity.name.function" }
+					},
+					"patterns": [
+						{ "match": ".*"}
+					]
+				}
+			]
+		},
+		"arglist": {
+			"patterns": [
+				{
+					"match": ".*"
+				}
+			]
 		},
 		"strings": {
 			"name": "string.quoted.double.ooplang",
 			"begin": "\"",
 			"end": "\"",
 			"patterns": [
-				{
-					"name": "constant.character.escape.ooplang",
+				{ "name": "constant.character.escape.ooplang",
 					"match": "\\\\."
+				}
+			]
+		},
+		"ids": {
+			"patterns": [
+				{
+					"match": "(def)\\s+([a-zA-Z.:]+)",
+					"captures": {
+						"1": { "name": "keyword" },
+						"2": { "name": "entity.name.function" }
+					}
 				}
 			]
 		}
