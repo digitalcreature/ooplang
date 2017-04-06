@@ -1,4 +1,4 @@
 def foo(x, y, z) -> w
 def bar(x, y) -> (w, baz)
 def baz(x, y, z)
-def (x, y, z)
+def a(x, y, z)

@@ -1,0 +1,39 @@
+block <- {| {:block::}
+	indent line
+	(
+		blankline / 
+		(=indent !s line) /
+		subblock
+	)*
+|}
+subblock <- &(=indent s) block
+
+indent <- {:indent: s* :}
+
+line <- statement (eol / comment)
+
+statement <- s* (
+	classdef
+	/ funcdef
+	/ [^%nl/]+
+) s*
+
+classdef <- {| {:classdef::}
+	"class" (s* {:name: id :} )?
+|}
+
+funcdef <- {| {:funcdef::}
+	"def" (s* {:name: id :} )? s*
+	"(" s* {:args: arglist :} s* ")"
+	((s* "->" s* {:rets: retlist :} ) / ({:rets:{| |}:}))
+|}
+
+arglist <- {| ( id  (s* "," s*  id )* ("," s* {:elips: "..." :} )? )? |}
+retlist <- {| id  / ( "(" s*  id  (s* "," s*  id )* ("," s* {:elips: "..." :} )? s* ")" ) |}
+
+id <- {[a-zA-Z:.]+}
+
+s <- (%tab / " ")
+blankline <- s* (%nl / comment)
+comment <- ("//" [^%nl]* eol )
+eol <- %nl / !.
