@@ -4,10 +4,11 @@ CXXFLAGS=-g
 TARGET=ooplang
 
 
-$(TARGET): main.o
-	$(CC) $< -o $@
+$(TARGET): main.o parse.o
+	$(CC) $^ -o $@
 
 main.o: parse.hpp
+parse.o: parse.hpp
 
 .PHONY: clean
 clean:
