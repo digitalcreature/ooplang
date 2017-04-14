@@ -3,7 +3,9 @@
 using namespace OOPLang;
 
 Parser::Parser(std::istream& in)
-	: state(), in(in) {}
+	: state(), in(in) {
+		state.os = in.tellg();
+	}
 
 Parser::State::State() : c(0), ln(1), cn(0), os(0) {}
 
@@ -19,6 +21,7 @@ char Parser::nextc() {
 				state.cn ++;
 			}
 			state.c = c;
+			state.os = in.tellg();
 			return c;
 		}
 	}
