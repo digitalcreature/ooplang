@@ -9,7 +9,7 @@ Parser::State::State() : c(0), ln(1), cn(0), os(0) {}
 
 char Parser::nextc() {
 	char c;
-	if (in.get(c)) {
+	while (in.get(c)) {
 		if (c != '\r') {
 			if (c == '\n') {
 				state.ln ++;
@@ -19,8 +19,8 @@ char Parser::nextc() {
 				state.cn ++;
 			}
 			state.c = c;
+			return c;
 		}
-		return state.c;
 	}
 	return 0;
 }
