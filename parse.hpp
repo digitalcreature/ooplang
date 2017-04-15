@@ -15,9 +15,9 @@ namespace OOPLang {
 
 			// constructor
 			Parser(std::istream& in);
-			
-			// read a character from input
-			char nextc();
+
+			// parse
+			void parse();
 			
 		private:
 			
@@ -36,13 +36,19 @@ namespace OOPLang {
 			// fail parsing, throw exception
 			void fail(ParseError *error);
 
+			// read a character from input
+			char nextc();
+
 	};
 
 	class ParseError: public std::exception {
-	
 		public:
 			virtual const char* what();
+	};
 
+	class UnexpectedEOF: public ParseError {
+		public:
+			virtual const char* what();
 	};
 
 }

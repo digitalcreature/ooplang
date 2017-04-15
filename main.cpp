@@ -16,6 +16,7 @@ int main(int argc, char *argv[]) {
 		ifstream file(argv[1]);
 		if (file) {
 			Parser parser(file);
+			parser.parse();
 			// do parser things
 			file.close();
 			return 0;
