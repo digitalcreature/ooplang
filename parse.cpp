@@ -4,7 +4,8 @@ using namespace OOPLang;
 
 Parser::Parser(std::istream& in)
 	: state(), in(in) {
-		state.os = in.tellg();
+		in.seekg(0);
+		nextc();
 	}
 
 Parser::State::State() : c(0), ln(1), cn(0), os(0) {}
