@@ -39,6 +39,11 @@ namespace OOPLang {
 			// read a character from input
 			char nextc();
 
+			// match a single character
+			Parser &mc(char c);
+			// match a string
+			Parser &ms(const char *s);
+
 	};
 
 	class ParseError: public std::exception {
