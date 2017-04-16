@@ -39,6 +39,11 @@ namespace OOPLang {
 			// read a character from input
 			char nextc();
 
+			// skip whitespace
+			Parser &sws();
+			// dont skip whitespace (fails if next char is whitespace)
+			Parser &nws();
+
 			// match a single character
 			Parser &mc(char c);
 			// match a string

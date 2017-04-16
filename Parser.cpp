@@ -1,5 +1,6 @@
 #include "parse.hpp"
 #include <iostream>
+#include <ctype.h>
 
 using namespace OOPLang;
 
@@ -36,17 +37,34 @@ void Parser::fail(ParseError *error) {
 
 void Parser::parse() {
 	try {
-		ms("cat");
-		std::cout << "matched cat!" << std::endl;
+		ms("cats").ms("are").ms("cool");
+		std::cout << "matched!" << std::endl;
 	}
 	catch (ParseError &error) {
-		std::cerr << "failed to match cat!" << std::endl;
+		std::cerr << "failed!" << std::endl;
 		return;
 	}
 }
 
+Parser& Parser::sws() {
+	try {
+		while(isspace(state.c)) nextc();
+	}
+	catch (UnexpectedEOF &error) {}
+	return *this;
+}
+
+Parser& Parser::nws() {
+	if (isspace(state.c)) {
+		fail(new ParseError());
+	}
+	nextc();
+	return *this;
+}
+
 
 Parser& Parser::mc(char c) {
+	sws();
 	if (state.c != c) {
 		fail(new ParseError());
 	}
@@ -55,6 +73,7 @@ Parser& Parser::mc(char c) {
 }
 
 Parser& Parser::ms(const char *s) {
+	sws();
 	while (*s != 0 && *s == state.c) {
 		s ++;
 		nextc();
