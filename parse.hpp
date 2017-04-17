@@ -60,11 +60,6 @@ namespace OOPLang {
 			virtual const char* what();
 	};
 
-	class UnexpectedEOF: public ParseError {
-		public:
-			virtual const char* what();
-	};
-
 	class StackUnderflowException: public std::exception {
 		public:
 			virtual const char* what() {

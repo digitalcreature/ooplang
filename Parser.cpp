@@ -47,8 +47,8 @@ char Parser::nextc() {
 			return c;
 		}
 	}
-	state.c = 0;
-	throw UnexpectedEOF();
+	state.os = in.tellg();
+	return state.c = 0;
 }
 
 void Parser::parse() {
@@ -63,10 +63,7 @@ void Parser::parse() {
 }
 
 Parser& Parser::sws() {
-	try {
-		while(isspace(state.c)) nextc();
-	}
-	catch (UnexpectedEOF &error) {}
+	while(isspace(state.c)) nextc();
 	return *this;
 }
 
