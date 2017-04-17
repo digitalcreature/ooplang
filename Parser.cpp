@@ -53,8 +53,11 @@ char Parser::nextc() {
 
 void Parser::parse() {
 	try {
-		ms("cats").ms("are").ms("cool");
-		std::cout << "matched!" << std::endl;
+		std::vector<double> nums;
+		m_block(nums);
+		for (const double& n : nums) {
+			std::cout << n << std::endl;
+		}
 	}
 	catch (ParseError &error) {
 		std::cerr << "failed!" << std::endl;
@@ -74,7 +77,6 @@ Parser& Parser::nws() {
 	nextc();
 	return *this;
 }
-
 
 Parser& Parser::mc(char c) {
 	sws();

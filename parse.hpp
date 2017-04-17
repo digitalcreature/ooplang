@@ -2,6 +2,7 @@
 
 #include <istream>
 #include <stack>
+#include <vector>
 
 namespace OOPLang {
 
@@ -50,8 +51,15 @@ namespace OOPLang {
 
 			// match a single character
 			Parser &mc(char c);
-			// match a string
+			// match an arbitrary string
 			Parser &ms(const char *s);
+
+			Parser &m_block(std::vector<double>& nums);
+			Parser &m_expr(double& n);
+			Parser &m_sum(double& n);
+			Parser &m_product(double& n);
+			Parser &m_atom(double& n);
+			Parser &m_number(double& n);
 
 	};
 
