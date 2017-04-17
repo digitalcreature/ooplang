@@ -32,9 +32,6 @@ namespace OOPLang {
 
 			// input file being read from
 			std::istream& in;
-			
-			// fail parsing, throw exception
-			void fail(ParseError *error);
 
 			// read a character from input
 			char nextc();

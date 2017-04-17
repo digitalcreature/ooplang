@@ -28,11 +28,7 @@ char Parser::nextc() {
 			return c;
 		}
 	}
-	fail(new UnexpectedEOF());
-}
-
-void Parser::fail(ParseError *error) {
-	throw *error;
+	throw UnexpectedEOF();
 }
 
 void Parser::parse() {
@@ -56,7 +52,7 @@ Parser& Parser::sws() {
 
 Parser& Parser::nws() {
 	if (isspace(state.c)) {
-		fail(new ParseError());
+		throw ParseError();
 	}
 	nextc();
 	return *this;
@@ -66,7 +62,7 @@ Parser& Parser::nws() {
 Parser& Parser::mc(char c) {
 	sws();
 	if (state.c != c) {
-		fail(new ParseError());
+		throw ParseError();
 	}
 	nextc();
 	return *this;
@@ -78,6 +74,6 @@ Parser& Parser::ms(const char *s) {
 		s ++;
 		nextc();
 	}
-	if (*s != 0) fail(new ParseError());
+	if (*s != 0) throw ParseError();
 	return *this;
 }
