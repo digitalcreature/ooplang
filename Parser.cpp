@@ -18,13 +18,17 @@ Parser &Parser::push() {
 }
 
 Parser::State Parser::pop() {
-	State state = stack.top();
-	stack.pop();
-	return state;
+	if (!stack.empty()) {
+		State state = stack.top();
+		stack.pop();
+		return state;
+	}
+	throw StackUnderflowException();
 }
 
 void Parser::restore() {
 	state = pop();
+	in.seekg(state.os);
 }
 
 char Parser::nextc() {

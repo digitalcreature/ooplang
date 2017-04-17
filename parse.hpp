@@ -65,4 +65,11 @@ namespace OOPLang {
 			virtual const char* what();
 	};
 
+	class StackUnderflowException: public std::exception {
+		public:
+			virtual const char* what() {
+				return "Parser state stack underflow! Nothing to pop.";
+			}
+	};
+
 }
