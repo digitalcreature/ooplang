@@ -5,12 +5,27 @@
 using namespace OOPLang;
 
 Parser::Parser(std::istream& in)
-	: state(), in(in) {
+	: state(), in(in), stack() {
 		in.seekg(0);
 		nextc();
 	}
 
 Parser::State::State() : c(0), ln(1), cn(0), os(0) {}
+
+Parser &Parser::push() {
+	stack.push(state);
+	return *this;
+}
+
+Parser::State Parser::pop() {
+	State state = stack.top();
+	stack.pop();
+	return state;
+}
+
+void Parser::restore() {
+	state = pop();
+}
 
 char Parser::nextc() {
 	char c;
@@ -28,6 +43,7 @@ char Parser::nextc() {
 			return c;
 		}
 	}
+	state.c = 0;
 	throw UnexpectedEOF();
 }
 

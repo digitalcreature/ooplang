@@ -1,6 +1,7 @@
 #pragma once
 
 #include <istream>
+#include <stack>
 
 namespace OOPLang {
 
@@ -29,6 +30,12 @@ namespace OOPLang {
 				uint cn;					// column number
 				std::streampos os;	// file offset
 			} state;
+
+			// stack of previous states
+			std::stack<State> stack;
+			Parser &push();			// save state on stack
+			State pop();				// pop state from stack and return
+			void restore();	// pop state from stack and restore parser state from it
 
 			// input file being read from
 			std::istream& in;
