@@ -13,17 +13,9 @@ int main(int argc, char *argv[]) {
 		return 1;
 	}
 	else {
-		ifstream file(argv[1]);
-		if (file) {
-			Parser parser(file);
-			parser.parse();
-			// do parser things
-			file.close();
-			return 0;
-		}
-		else {
-			cerr << "could not open file" << endl;
-			return 1;
-		}
+		Parser parser(argv[1]);
+		parser.parse();
+		// do parser things
+		return 0;
 	}
 }

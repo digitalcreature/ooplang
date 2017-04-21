@@ -13,15 +13,29 @@ namespace OOPLang {
 
 	class Parser {
 
+		friend class ParseError;
+
 		public:
 
-			// constructor
-			Parser(std::istream& in);
+			// NOTE: Parser deallocates the stream object it is given when it is done with it.
+
+			//from generic stream, with custom filename
+			Parser(std::istream *in, std::string fname = "?");
+			// from filename (ifstream is created)
+			Parser(std::string fname);
+
+			// deconstructor destroys input stream
+			~Parser();
 
 			// parse
 			void parse();
 			
 		private:
+
+			// input file being read from
+			std::istream *in;
+			// name of the input file
+			std::string fname;
 			
 			// state of parsing automota
 			struct State {
@@ -37,9 +51,6 @@ namespace OOPLang {
 			Parser &push();			// save state on stack
 			State pop();				// pop state from stack and return
 			void restore();	// pop state from stack and restore parser state from it
-
-			// input file being read from
-			std::istream& in;
 
 			// read a character from input
 			char nextc();
@@ -64,9 +75,15 @@ namespace OOPLang {
 	};
 
 	class ParseError: public std::exception {
+		friend std::ostream& operator<<(std::ostream& s, const ParseError& error);
 		public:
-			virtual const char* what();
+			ParseError(const Parser *parser);
+			const std::string fname;
+			const Parser::State state;
+		private:
 	};
+	
+	std::ostream& operator<<(std::ostream& s, const ParseError& error);
 
 	class StackUnderflowException: public std::exception {
 		public:
@@ -74,5 +91,7 @@ namespace OOPLang {
 				return "Parser state stack underflow! Nothing to pop.";
 			}
 	};
+
+
 
 }

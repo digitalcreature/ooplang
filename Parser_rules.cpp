@@ -94,6 +94,6 @@ Parser &Parser::m_number(double &n) {
 		return *this;
 	}
 	else {
-		throw ParseError();
+		throw ParseError(this);
 	}
 }
