@@ -65,6 +65,8 @@ namespace OOPLang {
 			// match an arbitrary string
 			Parser &ms(const char *s);
 
+			Parser &ms(const char **v, uint n ...);
+
 			Parser &m_block(std::vector<double>& nums);
 			Parser &m_expr(double& n);
 			Parser &m_sum(double& n);

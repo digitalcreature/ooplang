@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <ctype.h>
+#include <cstdarg>
 
 using namespace OOPLang;
 
@@ -102,5 +103,26 @@ Parser& Parser::ms(const char *s) {
 		nextc();
 	}
 	if (*s != 0) throw ParseError(this);
+	return *this;
+}
+
+Parser& Parser::ms(const char **v, uint n ...) {
+	va_list args;
+	va_start(args, n);
+	for (int i = 0; i < n; i ++) {
+		try {
+			const char *s = va_arg(args, const char*);
+			push();
+			ms(s);
+			pop();
+			*v = s;
+			break;
+		}
+		catch (ParseError &error)  {
+			restore();
+		}
+	}
+	throw ParseError(this);
+	va_end(args);
 	return *this;
 }
